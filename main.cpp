@@ -64,17 +64,6 @@ int MainLoop( void )
 		}
 	}
 
-	/*
-	//¶‚«•Ô‚èƒeƒXƒg
-	if(Xchu_Status[Xchu_MAX] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};)
-	{
-		for(int i=0; i<Xchu_MAX; i=i+1)
-		{
-			Xchu_Status[i] = 1;
-			XchuC[i] = rand()%4;
-		}
-	}
-	*/
 
 	for(int i=0; i<Xchu_MAX; i=i+1)
 	{
