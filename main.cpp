@@ -67,18 +67,13 @@ int MainLoop( void )
 	for(int i=0; i<Xchu_MAX; i=i+1)
 	{
 		//左クリックでカーソルがエックちゅと重なっていたら
-		if (MikanInput->GetMouseNum(0)!=0 && (((XchuX[i]-MouseX)*(XchuX[i]-MouseX))+((XchuY[i]-MouseY)*(XchuY[i]-MouseY)))<=(XchuW/2)*(XchuW/2) )
+		if (MikanInput->GetMouseNum(0)==1 && (((XchuX[i]-MouseX)*(XchuX[i]-MouseX))+((XchuY[i]-MouseY)*(XchuY[i]-MouseY)))<=(XchuW/2)*(XchuW/2) )
 		{
-				//マウスの位置に画像を描画
-				XchuX[i] = MouseX;
-				XchuY[i] = MouseY;
-				Xchu_Status[i] = 2;
+			//エックちゅをつままれ状態に			
+			Xchu_Status[i] = 2;
+			break;
 		}else{
-		//そうでなければ枠の中に描画
-			int ix = i%4;
-			int iy = i/4;
-			XchuX[i] = 54*ix+63;
-			XchuY[i] = 54*iy+63;
+			//そうでなければ生きている状態
 			Xchu_Status[i] = 1;
 		}
 	}
@@ -86,8 +81,20 @@ int MainLoop( void )
 	//エックちゅの描画
 	for(int i=0; i<Xchu_MAX; i=i+1)
 	{
-		if(Xchu_Status[i] >= 0)
+		//エックちゅが生きていたら枠の中に描画
+		if(Xchu_Status[i] == 1)
 		{
+			int ix = i%4;
+			int iy = i/4;
+			XchuX[i] = 54*ix+63;
+			XchuY[i] = 54*iy+63;
+			MikanDraw->DrawTextureScalingC(XchuC[i], XchuX[i], XchuY[i], 0, 0, 16, 16, 3.0, 0);
+		}
+		//つままれていたらマウスの位置に描画
+		if(Xchu_Status[i] == 2)
+		{
+			XchuX[i] = MouseX;
+			XchuY[i] = MouseY;
 			MikanDraw->DrawTextureScalingC(XchuC[i], XchuX[i], XchuY[i], 0, 0, 16, 16, 3.0, 0);
 		}
 	}
