@@ -72,7 +72,7 @@ int MainLoop( void )
 			//ƒGƒbƒN‚¿‚ã‚ğ‚Â‚Ü‚Ü‚êó‘Ô‚É			
 			Xchu_Status[i] = 2;
 			break;
-		}else{
+		}else if(MikanInput->GetMouseNum(0)==0){
 			//‚»‚¤‚Å‚È‚¯‚ê‚Î¶‚«‚Ä‚¢‚éó‘Ô
 			Xchu_Status[i] = 1;
 		}
