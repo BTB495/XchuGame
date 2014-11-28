@@ -15,7 +15,6 @@ int BX=0;
 int UX=0;
 int PX=0;
 int Xchu_Status[Xchu_MAX];//0で死.1で生.2でつままれ
-bool Catch = false;
 
 //プログラム起動時に1度だけ実行
 //システム設定などを行う
@@ -68,13 +67,12 @@ int MainLoop( void )
 	for(int i=0; i<Xchu_MAX; i=i+1)
 	{
 		//左クリックでカーソルがエックちゅと重なっていたら
-		if (Catch==false && MikanInput->GetMouseNum(0)!=0 && (((XchuX[i]-MouseX)*(XchuX[i]-MouseX))+((XchuY[i]-MouseY)*(XchuY[i]-MouseY)))<=(XchuW/2)*(XchuW/2) )
+		if (MikanInput->GetMouseNum(0)!=0 && (((XchuX[i]-MouseX)*(XchuX[i]-MouseX))+((XchuY[i]-MouseY)*(XchuY[i]-MouseY)))<=(XchuW/2)*(XchuW/2) )
 		{
 				//マウスの位置に画像を描画
 				XchuX[i] = MouseX;
 				XchuY[i] = MouseY;
 				Xchu_Status[i] = 2;
-				Catch = true;
 		}else{
 		//そうでなければ枠の中に描画
 			int ix = i%4;
@@ -82,7 +80,6 @@ int MainLoop( void )
 			XchuX[i] = 54*ix+63;
 			XchuY[i] = 54*iy+63;
 			Xchu_Status[i] = 1;
-			Catch = false;
 		}
 	}
 
@@ -128,8 +125,6 @@ int MainLoop( void )
 
 	//escで終了
 	return MikanInput->GetKeyNum( K_ESC ) == 1;
-
-  return 0;
 }
 
 //MainLoop終了後に1度だけ実行
